@@ -19,8 +19,8 @@ Current strict estimate:
 | Unified cleaned v2 panel | 70-75% | A provisional Capital IQ v2 panel has now been built from the baseline firm-year panel plus supplemental raw workbooks, with 21,737 rows, 2,335 companies, FY2014-FY2024, and zero duplicate company-year rows. It is not yet sample-frozen. |
 | Sample freeze and exclusion audit | 70-75% | A provisional sample-freeze script now defines duplicate, market, analyst-timing, structure-name, event-window, and label-specific sample flags. It is still not final because industry classifications and tone/text-quality exclusions are not available in the v2 firm-year panel. |
 | Label construction readiness | 75-80% | Broad, strict accounting, persistent, Altman, and event candidate labels now exist and have sample counts plus preliminary logit checks. Event labels still rely on conservative name matching rather than direct Entity ID matching. |
-| Overall data readiness for final model rerun | 80-85% | The v2 merge, provisional sample freeze, winsorization, missingness rules, and preliminary firm-clustered logit checks are now in place. Remaining blockers are final industry/tone exclusions, event-ID reconciliation, and full robustness/table regeneration. |
-| Full paper-to-submission readiness | 40-45% | Preliminary results now support a stricter accounting-stress route, but full robustness, table rebuilding, manuscript rewrite, target-journal packaging, and final submission QA remain incomplete. |
+| Overall data readiness for final model rerun | 85-90% | The v2 merge, provisional sample freeze, winsorization, missingness rules, preliminary firm-clustered logit checks, market split, label robustness, onset sample, COVID exclusion, and prediction-increment checks are now in place. Remaining blockers are final industry/tone exclusions, event-ID reconciliation, and final manuscript-table regeneration. |
+| Full paper-to-submission readiness | 45-50% | Results now support a conditional strict-accounting-stress manuscript route, but manuscript rewrite, final tables, target-journal packaging, and submission QA remain incomplete. |
 
 ## Evidence Inspected
 
@@ -34,6 +34,7 @@ Current strict estimate:
 - Provisional v2 audit: `outputs/ael_apac_firm_year_panel_v2_capital_iq_audit_20260603.md`.
 - Local frozen candidate panel: `data/processed/ael_apac_firm_year_panel_v2_frozen_candidate_20260603.csv`.
 - Sample-freeze audit: `outputs/ael_apac_v2_sample_freeze_cleaning_audit_20260603.md`.
+- Strict accounting route Go/No-Go audit: `outputs/ael_v2_strict_accounting_go_no_go_20260603.md`.
 - Current raw completion audit: `outputs/capital_iq_raw_data_completion_audit_20260603.md`.
 
 ## Why This Is Not Yet 100% Data Readiness
@@ -98,6 +99,28 @@ Current reviewer-level reading:
 - Altman should be robustness or supporting evidence unless total-liabilities coverage is improved.
 - Event evidence is useful validation but should not be called formal bankruptcy/default evidence without a direct-ID event export or stronger event taxonomy.
 - Tone/text extraction and low-quality-text exclusion remain unverified because the v2 panel has no tone or raw-text fields.
+
+## 2026-06-03 Strict-Route Go/No-Go Update
+
+Status: `CONDITIONAL_GO_FOR_STRICT_ACCOUNTING_STRESS_ROUTE`.
+
+Model-suite results:
+
+- Main strict accounting stress: odds ratio 0.711, AME -7.2 percentage points, p < 0.001.
+- ASX split: odds ratio 0.778, p = 0.003.
+- Singapore split: odds ratio 0.492, p < 0.001.
+- Onset sample excluding current strict stress: odds ratio 0.856, p = 0.077; direction survives but significance weakens.
+- COVID outcome-year exclusion: odds ratio 0.713, p < 0.001.
+- Analyst intensity: odds ratio 0.630 per log1p analyst count, p < 0.001.
+- Altman robustness: odds ratio 0.710, p = 0.090; direction only.
+- Broad event candidate: odds ratio 0.472, p < 0.001; candidate-level because event-ID mapping is not clean direct ID.
+- Prediction increment: delta AUC -0.0001, delta Brier -0.0005.
+
+Reviewer-facing implication:
+
+- The manuscript should be positioned as an association/information-environment paper, not a prediction-performance paper.
+- The main dependent variable should be strict subsequent accounting-based stress.
+- Broad stress stays appendix; Altman and event labels are robustness/validation, not the primary claim.
 
 ## Binding Next Step
 

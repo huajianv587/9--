@@ -1,0 +1,2 @@
+comparison,n,events,auc_accounting_only,auc_plus_analyst,delta_auc,brier_accounting_only,brier_plus_analyst,delta_brier
+strict_label_accounting_plus_analyst_minus_accounting_only,19322,7874,0.710107986603115,0.7100263538839446,-8.163271917038806e-05,0.21106372868133444,0.21060806437534646,-0.00045566430598797947
