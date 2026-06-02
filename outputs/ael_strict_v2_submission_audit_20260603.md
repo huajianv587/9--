@@ -16,6 +16,7 @@ The current Applied Economics Letters route has been rebuilt around the v2 stric
 - Package checker: `scripts/check_ael_strict_v2_package.py`.
 - Rendered PDF: `outputs/rendered/ael_strict_v2/ael_strict_accounting_stress_v2_submission.pdf`.
 - Rendered PNG pages: `outputs/rendered/ael_strict_v2/page-1.png` through `page-6.png`.
+- Local ignored submission package: `submission_package/ael_strict_v2_20260603/`.
 
 ## Scope
 
@@ -85,6 +86,39 @@ Visual QA result:
 - No paragraph or table clipping observed.
 - Landscape table pages render correctly.
 - Table pages have conservative whitespace but no submission-blocking layout defect.
+
+## Local Submission Package QA
+
+Local package files generated:
+
+- `Manuscript_AEL_strict_v2_draft.docx`.
+- `Manuscript_AEL_strict_v2_preview.pdf`.
+- `Title_page_and_declarations_strict_v2.docx`.
+- `Manuscript_AEL_strict_v2_with_author_details_TEMPLATE.docx`.
+- `Cover_letter_strict_v2.md`.
+- `Portal_fields_ready_to_paste_strict_v2.md`.
+- `Final_upload_checklist_strict_v2.md`.
+- `README.md`.
+
+Local package structural QA:
+
+- Missing required files: none.
+- Anonymous manuscript DOCX: 3 tables, 2 sections, strict title present, stale `19,402` absent, stale `0.568` absent.
+- Title page/declarations DOCX: strict title present, stale `19,402` absent, stale `0.568` absent.
+- With-author manuscript DOCX: 3 tables, 2 sections, strict title present, stale `19,402` absent, stale `0.568` absent.
+- Anonymous manuscript PDF preview: 6 pages.
+- Title page/declarations PDF preview: 1 page.
+- With-author manuscript PDF preview: 7 pages.
+
+Local package visual QA:
+
+- Title page/declarations page inspected; no clipping observed.
+- With-author table pages inspected after regeneration; landscape tables render correctly and no right-side clipping remains.
+
+Privacy note:
+
+- The local package contains author identity/contact fields and is intentionally kept under ignored `submission_package/`.
+- It should not be pushed to the public GitHub repository.
 
 ## Remaining Non-Data Gates
 

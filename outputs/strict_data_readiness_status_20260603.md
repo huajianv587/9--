@@ -20,7 +20,7 @@ Current strict estimate:
 | Sample freeze and exclusion audit | 90-92% | The sample-freeze script defines duplicate, market, analyst-timing, structure-name, event-window, and label-specific sample flags. Remaining exclusions are not blockers for the strict route unless industry classifications or tone/text-quality exclusions are explicitly claimed. |
 | Label construction readiness | 88-90% | Broad, strict accounting, persistent, Altman, and event candidate labels exist and have sample counts plus firm-clustered logit checks. Strict accounting stress is main-ready; Altman and event labels remain robustness/validation evidence rather than primary outcomes. |
 | Overall data readiness for final model rerun | 90-92% | The v2 merge, sample freeze, winsorization, missingness rules, firm-clustered logit checks, market split, label robustness, onset sample, COVID exclusion, prediction-increment checks, manuscript tables, and draft package are now in place. Remaining data risks are event-ID reconciliation and absent tone/text fields, both outside the current strict main claim. |
-| Full paper-to-submission readiness | 68-72% | Results support a conditional strict-accounting-stress route, v2 manuscript tables and draft text have been rebuilt, the full v2 DOCX draft has passed structural plus direct visual render QA, and an Applied Economics Letters strict v2 short draft now exists with render QA and automated package checks. Remaining blockers are live JCR/Web of Science verification, final author/declaration files, strict-route cover letter/portal fields, Capital IQ license wording confirmation, and final upload checks. |
+| Full paper-to-submission readiness | 75-78% | Results support a conditional strict-accounting-stress route, v2 manuscript tables and draft text have been rebuilt, the full v2 DOCX draft has passed structural plus direct visual render QA, and an Applied Economics Letters strict v2 short draft now exists with render QA, local submission-package files, and automated package checks. Remaining blockers are live JCR/Web of Science verification, user approval, Capital IQ license wording confirmation, final portal upload checks, and the intrinsic fact that Applied Economics Letters publicly displays a 35% acceptance rate rather than a provable 70-80% official acceptance rate. |
 
 ## Evidence Inspected
 
@@ -45,6 +45,7 @@ Current strict estimate:
 - Applied Economics Letters strict v2 short-route audit: `outputs/ael_strict_v2_submission_audit_20260603.md`.
 - Applied Economics Letters strict v2 draft: `manuscript/ael_strict_accounting_stress_v2_letter.md`.
 - Applied Economics Letters strict v2 DOCX draft: `manuscript/ael_strict_accounting_stress_v2_submission.docx`.
+- Local ignored Applied Economics Letters strict v2 submission package: `submission_package/ael_strict_v2_20260603/`.
 
 ## Why This Is Not Yet 100% Data Readiness
 
@@ -142,6 +143,7 @@ Generated artifacts:
 - DOCX structural QA report.
 - Applied Economics Letters strict v2 short draft with three main tables.
 - Applied Economics Letters strict v2 DOCX rendered to a 6-page PDF and PNG pages.
+- Local Applied Economics Letters strict v2 package with anonymous manuscript, title/declarations DOCX, with-author DOCX, cover letter, portal fields, and final upload checklist.
 
 DOCX QA status:
 
@@ -153,16 +155,16 @@ DOCX QA status:
 
 Packaging implication:
 
-- The paper is now a coherent v2 draft package with visual DOCX QA and a target-journal short-route AEL draft, but not a final portal-ready submission.
+- The paper is now a coherent v2 draft package with visual DOCX QA, a target-journal short-route AEL draft, and a local upload package. It is not yet a final portal-submitted package.
 
 ## Binding Next Step
 
-The raw-download phase is complete for the current strict-accounting-stress manuscript route. Do not continue blind downloading merely to make the raw folder larger. The current primary route is Applied Economics Letters strict v2. The next highest-value steps are journal-route verification and final package hardening:
+The raw-download phase is complete for the current strict-accounting-stress manuscript route. Do not continue blind downloading merely to make the raw folder larger. The current primary route is Applied Economics Letters strict v2. The next highest-value steps are final verification and portal execution:
 
 1. verify Applied Economics Letters in live JCR or institutional Web of Science before submission;
-2. regenerate strict-route title page, declarations, cover letter, and portal paste fields;
-3. lock blinded/non-blinded package requirements;
-4. rerender the exact final DOCX/PDF after author/declaration formatting;
+2. confirm the user approves the strict v2 manuscript, cover letter, author details, and declarations;
+3. confirm the Capital IQ data/code availability wording against the applicable institutional license;
+4. lock blinded/non-blinded package requirements in the portal;
 5. keep event labels as candidate validation unless a direct-ID Key Developments export is obtained;
 6. keep tone/text out of the claim unless a separate text/tone dataset is downloaded, audited, and merged.
 
