@@ -60,3 +60,103 @@ Every downloaded workbook must be audited with:
 ```bash
 python3 scripts/audit_capital_iq_supplemental_workbook.py /path/to/workbook.xlsx
 ```
+
+## 2026-06-02 ASX Supplemental Download Progress
+
+### Completed ASX Screen
+
+- Capital IQ page: Office Screener / Companies.
+- Criteria used:
+  - Company Type: Public Company.
+  - Exchange [Current]: ASX.
+- Screener result count: 1,696 records.
+- Model-panel overlap after workbook audit:
+  - Unique Capital IQ Entity IDs in export: 1,696.
+  - Overlap with model-panel IDs: 1,685.
+  - Missing model-panel IDs after ASX-current screen: 650.
+  - Extra export IDs outside model panel: 11.
+
+### Local Raw Workbooks
+
+Raw Capital IQ workbooks are local-only and intentionally ignored by git:
+
+- `data/raw/capital_iq/capital_iq_asx_altman_liquidity_marketcap_test_20260602.xlsx`
+- `data/raw/capital_iq/capital_iq_asx_altman_liquidity_marketcap_2020_2024_attempt_20260602.xlsx`
+- `data/raw/capital_iq/capital_iq_asx_altman_liquidity_marketcap_2014_2024_attempt_20260602.xlsx`
+
+Do not push these files to the public GitHub repository.
+
+### Audited ASX Fields
+
+Latest audited workbook:
+
+- `data/raw/capital_iq/capital_iq_asx_altman_liquidity_marketcap_2014_2024_attempt_20260602.xlsx`
+- Rows: 1,702 worksheet rows.
+- Columns: 101.
+- Data rows with Entity ID: 1,696.
+- Generic audit report:
+  - `outputs/audit_asx_altman_liquidity_marketcap_2014_2024_attempt_20260602.md`
+- Field-parameter audit report:
+  - `outputs/audit_asx_altman_field_parameters_2014_2024_20260602.md`
+
+Usable numeric ASX coverage from the field-parameter audit:
+
+| Field | Parameter/date | Usable numeric rows |
+|---|---:|---:|
+| Total Current Assets | FY2024 | 1,658 |
+| Total Current Assets | FY2023 | 1,649 |
+| Total Current Assets | FY2022 | 1,621 |
+| Total Current Assets | FY2021 | 1,562 |
+| Total Current Assets | FY2020 | 1,457 |
+| Total Current Assets | FY2019 | 1,405 |
+| Total Current Assets | FY2018 | 1,335 |
+| Total Current Assets | FY2017 | 1,257 |
+| Total Current Assets | FY2016 | 1,173 |
+| Total Current Assets | FY2015 | 1,117 |
+| Total Current Assets | FY2014 | 1,065 |
+| Total Current Liabilities | FY2024 | 1,659 |
+| Total Current Liabilities | FY2023 | 1,651 |
+| Total Current Liabilities | FY2022 | 1,622 |
+| Total Current Liabilities | FY2021 | 1,563 |
+| Total Current Liabilities | FY2020 | 1,460 |
+| Total Current Liabilities | FY2019 | 1,405 |
+| Total Current Liabilities | FY2018 | 1,338 |
+| Total Current Liabilities | FY2017 | 1,258 |
+| Total Current Liabilities | FY2016 | 1,177 |
+| Total Current Liabilities | FY2015 | 1,117 |
+| Total Current Liabilities | FY2014 | 1,058 |
+| Market Capitalization | 12/31/2024 | 1,645 |
+| Market Capitalization | 12/29/2023 | 1,612 |
+| Market Capitalization | 12/30/2022 | 1,577 |
+| Market Capitalization | 12/31/2021 | 1,495 |
+| Market Capitalization | 12/31/2020 | 1,316 |
+| Market Capitalization | 12/31/2019 | 1,241 |
+| Market Capitalization | 12/31/2018 | 1,206 |
+| Market Capitalization | 12/29/2017 | 1,135 |
+| Market Capitalization | 12/30/2016 | 1,057 |
+| Market Capitalization | 12/31/2015 | 984 |
+
+Important audit notes:
+
+- `12/31/2023` and `12/31/2022` market-cap columns have zero numeric observations. They are invalid year-end dates for this export and must be replaced by `12/29/2023` and `12/30/2022`.
+- `12/29/2017` appears twice; keep one column only during cleaning.
+- `12/31/2015` appears twice; keep one column only during cleaning.
+- `Current` market capitalization is present but must not be used as historical market value.
+- `12/31/2014` market capitalization is still missing from the latest export and remains an ASX gap.
+
+### Current Data-Preparation Percentage
+
+If 100% means a reviewer-defensible SSCI/JCR Q3 empirical data package:
+
+- Main panel: about 85-90%.
+- Altman financial-field supplement: about 55-60%.
+- Historical market-cap supplement: about 35-45%.
+- Event/distress-date supplement: about 10-15%.
+- Overall data-preparation status: about 55%.
+
+The next highest-priority data work is:
+
+1. Add ASX `12/31/2014` market capitalization or document an acceptable fallback.
+2. Repeat the same current-assets/current-liabilities/historical-market-cap workflow for SGX/Catalist.
+3. Download event/date fields from Key Developments, Transactions, company-status history, delisting/suspension, ratings, bankruptcy/liquidation/restructuring, or equivalent Capital IQ fields.
+4. Build a merge script that excludes current market cap, de-duplicates duplicate date columns, maps valid historical dates to fiscal years, and audits leakage.
