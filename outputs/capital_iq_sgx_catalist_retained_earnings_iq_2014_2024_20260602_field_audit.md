@@ -1,0 +1,46 @@
+# Capital IQ Retained Earnings Candidate Audit
+
+Date: 2026-06-03T00:13:14
+Workbook: `data/raw/capital_iq/capital_iq_sgx_catalist_retained_earnings_iq_2014_2024_20260602.xlsx`
+
+## Universe
+
+- Data rows with Entity ID: 544
+- Unique Entity IDs: 544
+- Duplicate Entity-ID rows: 0
+- Exchange counts: {'SGX': 354, 'Catalist': 190}
+- Company-type counts: {'Public Company': 544}
+
+## Field Source And Parameter Coverage
+
+- Retained-earnings field keys detected: ['IQ_RETAINED_EARNINGS']
+- Preferred CIQ retained-earnings key detected: True
+- Target FY years present: [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+- Missing target FY years: []
+- Duplicate target-year retained-earnings parameters: ['IQ_RETAINED_EARNINGS:FY1973', 'IQ_RETAINED_EARNINGS:FY1974', 'IQ_RETAINED_EARNINGS:FY1975', 'IQ_RETAINED_EARNINGS:FY1976', 'IQ_RETAINED_EARNINGS:FY1977', 'IQ_RETAINED_EARNINGS:FY1978', 'IQ_RETAINED_EARNINGS:FY1979', 'IQ_RETAINED_EARNINGS:FY1980', 'IQ_RETAINED_EARNINGS:FY1981', 'IQ_RETAINED_EARNINGS:FY1982', 'IQ_RETAINED_EARNINGS:FY1983', 'IQ_RETAINED_EARNINGS:FY1984', 'IQ_RETAINED_EARNINGS:FY1985', 'IQ_RETAINED_EARNINGS:FY1986', 'IQ_RETAINED_EARNINGS:FY1987', 'IQ_RETAINED_EARNINGS:FY1988', 'IQ_RETAINED_EARNINGS:FY1989', 'IQ_RETAINED_EARNINGS:FY1990', 'IQ_RETAINED_EARNINGS:FY1991', 'IQ_RETAINED_EARNINGS:FY1992', 'IQ_RETAINED_EARNINGS:FY1993', 'IQ_RETAINED_EARNINGS:FY1994', 'IQ_RETAINED_EARNINGS:FY1995', 'IQ_RETAINED_EARNINGS:FY1996', 'IQ_RETAINED_EARNINGS:FY1997', 'IQ_RETAINED_EARNINGS:FY1998', 'IQ_RETAINED_EARNINGS:FY1999', 'IQ_RETAINED_EARNINGS:FY2000', 'IQ_RETAINED_EARNINGS:FY2001', 'IQ_RETAINED_EARNINGS:FY2002', 'IQ_RETAINED_EARNINGS:FY2003', 'IQ_RETAINED_EARNINGS:FY2004', 'IQ_RETAINED_EARNINGS:FY2005', 'IQ_RETAINED_EARNINGS:FY2006', 'IQ_RETAINED_EARNINGS:FY2007', 'IQ_RETAINED_EARNINGS:FY2008', 'IQ_RETAINED_EARNINGS:FY2009', 'IQ_RETAINED_EARNINGS:FY2010', 'IQ_RETAINED_EARNINGS:FY2011', 'IQ_RETAINED_EARNINGS:FY2012', 'IQ_RETAINED_EARNINGS:FY2013', 'IQ_RETAINED_EARNINGS:FY2014', 'IQ_RETAINED_EARNINGS:FY2015', 'IQ_RETAINED_EARNINGS:FY2016', 'IQ_RETAINED_EARNINGS:FY2017', 'IQ_RETAINED_EARNINGS:FY2018', 'IQ_RETAINED_EARNINGS:FY2019', 'IQ_RETAINED_EARNINGS:FY2020', 'IQ_RETAINED_EARNINGS:FY2021', 'IQ_RETAINED_EARNINGS:FY2022', 'IQ_RETAINED_EARNINGS:FY2023', 'IQ_RETAINED_EARNINGS:FY2024', 'IQ_RETAINED_EARNINGS:FY2025']
+- Leakage/current columns to exclude in cleaning: {'IQ_RETAINED_EARNINGS:Latest Fiscal Year': [46, 104], 'IQ_RETAINED_EARNINGS:Latest Fiscal Quarter': [47, 105], 'IQ_RETAINED_EARNINGS:Year-to-Date': [48, 106], 'IQ_RETAINED_EARNINGS:Last Twelve Months': [49, 107], 'IQ_RETAINED_EARNINGS:Latest Half-Year': [50, 108], 'IQ_RETAINED_EARNINGS:FY2025': [51, 109]}
+- Out-of-window FY parameters to exclude in cleaning: ['FY1973', 'FY1974', 'FY1975', 'FY1976', 'FY1977', 'FY1978', 'FY1979', 'FY1980', 'FY1981', 'FY1982', 'FY1983', 'FY1984', 'FY1985', 'FY1986', 'FY1987', 'FY1988', 'FY1989', 'FY1990', 'FY1991', 'FY1992', 'FY1993', 'FY1994', 'FY1995', 'FY1996', 'FY1997', 'FY1998', 'FY1999', 'FY2000', 'FY2001', 'FY2002', 'FY2003', 'FY2004', 'FY2005', 'FY2006', 'FY2007', 'FY2008', 'FY2009', 'FY2010', 'FY2011', 'FY2012', 'FY2013', 'FY2025']
+
+## Target-Year Numeric Coverage
+
+| Field key | Parameter | Columns | Duplicate count | Max non-missing | Max numeric | Numeric by column |
+|---|---|---:|---:|---:|---:|---|
+| `IQ_RETAINED_EARNINGS` | `FY2014` | [62, 120] | 2 | 440 | 440 | [440, 440] |
+| `IQ_RETAINED_EARNINGS` | `FY2015` | [61, 119] | 2 | 454 | 454 | [454, 454] |
+| `IQ_RETAINED_EARNINGS` | `FY2016` | [60, 118] | 2 | 475 | 475 | [475, 475] |
+| `IQ_RETAINED_EARNINGS` | `FY2017` | [59, 117] | 2 | 476 | 476 | [476, 476] |
+| `IQ_RETAINED_EARNINGS` | `FY2018` | [58, 116] | 2 | 487 | 487 | [487, 487] |
+| `IQ_RETAINED_EARNINGS` | `FY2019` | [57, 115] | 2 | 495 | 495 | [495, 495] |
+| `IQ_RETAINED_EARNINGS` | `FY2020` | [56, 114] | 2 | 505 | 505 | [505, 505] |
+| `IQ_RETAINED_EARNINGS` | `FY2021` | [55, 113] | 2 | 505 | 505 | [505, 505] |
+| `IQ_RETAINED_EARNINGS` | `FY2022` | [54, 112] | 2 | 519 | 519 | [519, 519] |
+| `IQ_RETAINED_EARNINGS` | `FY2023` | [53, 111] | 2 | 523 | 523 | [523, 523] |
+| `IQ_RETAINED_EARNINGS` | `FY2024` | [52, 110] | 2 | 521 | 521 | [521, 521] |
+
+## Audit Decision
+
+Status: PASS_WITH_NOTES
+- Target-year retained-earnings columns are present and have auditable numeric coverage.
+- Duplicate target-year retained-earnings columns are present; cleaning must deduplicate by field key and period before merging.
+- Latest/current/FY2025 columns are present and must be excluded before modeling.
+- FY parameters outside 2014-2024 are present and must be excluded before modeling.

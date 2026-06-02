@@ -207,6 +207,28 @@ Remaining ASX gaps:
 - Retained earnings is still missing.
 - This script does not complete a strict Altman Z-score; it prepares working-capital and market-value pieces only.
 
+## 2026-06-03 Final Raw-Download Audit Update
+
+This earlier progress note is superseded by:
+
+- `outputs/capital_iq_raw_data_completion_audit_20260603.md`
+
+Current strict status:
+
+- Raw download plus base audit layer: 100%.
+- Retained earnings is no longer missing; ASX and SGX/Catalist `IQ_RETAINED_EARNINGS` workbooks have both passed field audit.
+- Total liabilities is covered by audited `SNL_TOTAL_LIAB` candidate exports for ASX and SGX/Catalist.
+- Event/date evidence is covered by the audited Key Developments workbook.
+- Broader Australia/Singapore public-company status universe is covered by an audited 3,005-ID schema-proof workbook.
+
+Still not complete:
+
+- unified cleaning;
+- v2 panel merge;
+- event-label construction;
+- model reruns;
+- manuscript rewrite.
+
 ## 2026-06-02 Catalist Identifier-Only Export
 
 ### Completed Catalist Screen
