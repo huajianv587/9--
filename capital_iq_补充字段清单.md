@@ -24,6 +24,25 @@
 - 无会计依据的retained earnings估算；
 - 直接上传或公开Capital IQ raw exports。
 
+### 2026-06-02当前完成状态
+
+以“审稿人可防守的数据包=100%”计，当前数据准备约为57%，不能写成“数据已完成”。
+
+已完成并清洗：
+
+- ASX当前上市公司补充：`SP_CURRENT_ASSETS`、`SP_CURRENT_LIAB` FY2014-FY2024；historical `SP_MARKETCAP` FY2015-FY2024大部分年份，2014缺口仍在。
+- Catalist pilot补充：`SP_CURRENT_ASSETS`、`SP_CURRENT_LIAB` FY2014-FY2024；historical `SP_MARKETCAP`仅有`12/31/2024`。
+
+仍未完成：
+
+- SGX mainboard补充字段；
+- Catalist `SP_MARKETCAP` 2014-2023；
+- ASX `SP_MARKETCAP` 2014；
+- retained earnings或严格替代口径；
+- total liabilities补充，如果严格计算Altman X4；
+- event/status/distress-date字段；
+- inactive/delisted/former-listed universe补充。
+
 ---
 
 ## 1. 保存位置和命名规则

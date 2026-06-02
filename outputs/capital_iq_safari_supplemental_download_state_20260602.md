@@ -206,3 +206,130 @@ Remaining ASX gaps:
 - `12/31/2014` historical market capitalization is absent, so 2014 X4-style market value cannot be computed from this export.
 - Retained earnings is still missing.
 - This script does not complete a strict Altman Z-score; it prepares working-capital and market-value pieces only.
+
+## 2026-06-02 Catalist Identifier-Only Export
+
+### Completed Catalist Screen
+
+- Capital IQ page: Office Screener / Companies.
+- Criteria used:
+  - Exchange [Current]: Catalist.
+- Screener result count: 190 records.
+- Display columns at export time:
+  - Entity Name.
+  - Entity ID.
+  - Exchange Current.
+
+### Local Raw Workbook
+
+Raw Capital IQ workbook is local-only and intentionally ignored by git:
+
+- `data/raw/capital_iq/capital_iq_catalist_current_exchange_identifiers_20260602.xlsx`
+
+Do not push this file to the public GitHub repository.
+
+### Audit Result
+
+Audit report generated locally and intentionally ignored by git:
+
+- `outputs/capital_iq_catalist_current_exchange_identifiers_20260602_supplemental_workbook_audit.md`
+
+Workbook audit summary:
+
+- Worksheet rows: 196.
+- Worksheet columns: 3.
+- Data rows: 191.
+- Unique Entity IDs: 190.
+- Model-panel overlap: 162.
+- Extra export IDs outside model panel: 28.
+- Missing model-panel IDs after this identifier-only workbook: 2,173.
+- Date-like columns: none detected.
+- Critical-like financial/event columns: none detected.
+
+### Merge Decision
+
+This export is useful only as a Catalist current-listing universe and ID-overlap check. It must not be merged into the empirical model as Altman, market-cap, distress-event, or historical accounting data.
+
+Current data-preparation percentage remains about 55%. The percentage does not materially improve until SGX/Catalist current-assets, current-liabilities, historical market capitalization, retained-earnings/proxy, and event/date fields are downloaded and audited.
+
+## 2026-06-02 Catalist Altman/Market Pilot
+
+### Completed Catalist Pilot Export
+
+- Capital IQ page: Office Screener / Companies.
+- Criteria used:
+  - Exchange [Current]: Catalist.
+- Screener result count: 190 records.
+- Export includes:
+  - Entity Name.
+  - Entity ID.
+  - Exchange Current.
+  - `SP_CURRENT_ASSETS` Fiscal Year / All.
+  - `SP_CURRENT_LIAB` Fiscal Year / All.
+  - `SP_MARKETCAP` with explicit `12/31/2024` pricing date.
+
+### Local Raw Workbook
+
+Raw Capital IQ workbook is local-only and intentionally ignored by git:
+
+- `data/raw/capital_iq/capital_iq_catalist_altman_liquidity_marketcap_pilot_20260602.xlsx`
+
+Do not push this file to the public GitHub repository.
+
+### Audit Result
+
+Audit report generated locally and intentionally ignored by git:
+
+- `outputs/capital_iq_catalist_altman_liquidity_marketcap_pilot_20260602_supplemental_workbook_audit.md`
+
+Workbook audit summary:
+
+- Worksheet rows: 196.
+- Worksheet columns: 87.
+- Unique Entity IDs: 190.
+- Model-panel overlap: 162.
+- Extra export IDs outside model panel: 28.
+- Critical-like columns detected:
+  - `Total Current Assets ($000)`.
+  - `Total Current Liabilities ($000)`.
+  - `Market Capitalization ($M)`.
+
+Field-parameter check:
+
+- `SP_CURRENT_ASSETS`: FY2014-FY2024 available, plus non-model latest/YTD/older-year columns that must be excluded during cleaning.
+- `SP_CURRENT_LIAB`: FY2014-FY2024 available, plus non-model latest/YTD/older-year columns that must be excluded during cleaning.
+- `SP_MARKETCAP`: `12/31/2024` only, duplicated twice; cleaning keeps the first duplicate.
+- Market-cap years still missing for Catalist: 2014-2023.
+
+### Cleaning Script Progress
+
+Added a public-safe Catalist pilot cleaning script:
+
+- `scripts/build_catalist_altman_market_pilot.py`
+
+Local generated outputs are intentionally ignored by git:
+
+- `data/processed/capital_iq_catalist_altman_market_pilot_20260602.csv`
+- `outputs/catalist_altman_market_pilot_merge_audit_20260602.md`
+
+Catalist pilot merge coverage against the Singapore panel:
+
+| Fiscal year | Singapore panel rows | Current assets | Current liabilities | Historical market cap |
+|---:|---:|---:|---:|---:|
+| 2014 | 442 | 116 | 116 | 0 |
+| 2015 | 467 | 126 | 126 | 0 |
+| 2016 | 499 | 135 | 135 | 0 |
+| 2017 | 513 | 137 | 137 | 0 |
+| 2018 | 530 | 141 | 141 | 0 |
+| 2019 | 546 | 145 | 145 | 0 |
+| 2020 | 574 | 152 | 152 | 0 |
+| 2021 | 594 | 156 | 156 | 0 |
+| 2022 | 627 | 162 | 162 | 0 |
+| 2023 | 640 | 162 | 162 | 0 |
+| 2024 | 642 | 161 | 161 | 151 |
+
+### Merge Decision
+
+This pilot is valid as a Catalist current-listing sub-sample supplement for working-capital fields and 2024 market capitalization. It is not a complete Singapore supplement and must not be used as a claim that SGX/Catalist historical market data are complete.
+
+Current data-preparation percentage moves only slightly, from about 55% to about 57%. The binding gaps remain: SGX mainboard coverage, Catalist historical market capitalization for 2014-2023, ASX 2014 market capitalization, retained earnings/proxy policy, total-liabilities supplement if strict Altman X4 is used, and event/distress-date fields.
