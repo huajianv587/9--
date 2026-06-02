@@ -15,12 +15,12 @@ Current strict estimate:
 |---|---:|---|
 | Raw Capital IQ supplemental downloads | 100% | The current raw completion audit lists all required Altman/liquidity/market-cap, liabilities, retained-earnings, event/status, and broad status-universe workbooks as downloaded and base-audited. |
 | Raw workbook base audit layer | 100% | Each required supplemental workbook has a base audit and field/event audit, but most decisions remain `PASS_WITH_NOTES`, not clean unconditional pass. |
-| Download checklist at reviewer-data-package level | 80-85% | The critical raw blocks are present, but the checklist still requires missing-ID reconciliation, duplicate handling, leakage checks, and market/current-universe boundary decisions after merge. |
-| Unified cleaned v2 panel | 70-75% | A provisional Capital IQ v2 panel has now been built from the baseline firm-year panel plus supplemental raw workbooks, with 21,737 rows, 2,335 companies, FY2014-FY2024, and zero duplicate company-year rows. It is not yet sample-frozen. |
-| Sample freeze and exclusion audit | 70-75% | A provisional sample-freeze script now defines duplicate, market, analyst-timing, structure-name, event-window, and label-specific sample flags. It is still not final because industry classifications and tone/text-quality exclusions are not available in the v2 firm-year panel. |
-| Label construction readiness | 75-80% | Broad, strict accounting, persistent, Altman, and event candidate labels now exist and have sample counts plus preliminary logit checks. Event labels still rely on conservative name matching rather than direct Entity ID matching. |
-| Overall data readiness for final model rerun | 85-90% | The v2 merge, provisional sample freeze, winsorization, missingness rules, preliminary firm-clustered logit checks, market split, label robustness, onset sample, COVID exclusion, and prediction-increment checks are now in place. Remaining blockers are final industry/tone exclusions, event-ID reconciliation, and final manuscript-table regeneration. |
-| Full paper-to-submission readiness | 55-60% | Results support a conditional strict-accounting-stress route, v2 manuscript tables and draft text have been rebuilt, and a DOCX draft has passed structural QA. Remaining blockers are visual DOCX/PDF QA, refreshed target-journal verification, event-ID/tone limitations, and final submission package checks. |
+| Download checklist at reviewer-data-package level | 95-100% | For the current strict-accounting-stress claim boundary, the required raw downloads are present and base-audited. Additional downloads would only be needed if the paper expands into direct-ID event outcomes, tone/text measures, or industry-based exclusion claims. |
+| Unified cleaned v2 panel | 90-92% | The Capital IQ v2 panel has been built from the baseline firm-year panel plus supplemental raw workbooks, with 21,737 rows, 2,335 companies, FY2014-FY2024, and zero duplicate company-year rows. It has moved beyond provisional construction, but final journal-facing exclusions still depend on the selected claim boundary. |
+| Sample freeze and exclusion audit | 90-92% | The sample-freeze script defines duplicate, market, analyst-timing, structure-name, event-window, and label-specific sample flags. Remaining exclusions are not blockers for the strict route unless industry classifications or tone/text-quality exclusions are explicitly claimed. |
+| Label construction readiness | 88-90% | Broad, strict accounting, persistent, Altman, and event candidate labels exist and have sample counts plus firm-clustered logit checks. Strict accounting stress is main-ready; Altman and event labels remain robustness/validation evidence rather than primary outcomes. |
+| Overall data readiness for final model rerun | 90-92% | The v2 merge, sample freeze, winsorization, missingness rules, firm-clustered logit checks, market split, label robustness, onset sample, COVID exclusion, prediction-increment checks, manuscript tables, and draft package are now in place. Remaining data risks are event-ID reconciliation and absent tone/text fields, both outside the current strict main claim. |
+| Full paper-to-submission readiness | 60-65% | Results support a conditional strict-accounting-stress route, v2 manuscript tables and draft text have been rebuilt, and the DOCX draft has passed structural plus direct visual render QA. Remaining blockers are refreshed target-journal verification, final formatting to a selected journal, event-ID/tone limitation language, and portal package checks. |
 
 ## Evidence Inspected
 
@@ -39,7 +39,9 @@ Current strict estimate:
 - v2 strict-route cover letter draft: `manuscript/strict_accounting_stress_v2_cover_letter.md`.
 - v2 strict-route DOCX draft: `manuscript/strict_accounting_stress_v2_submission_manuscript.docx`.
 - v2 DOCX structural QA: `outputs/strict_accounting_stress_v2_docx_structural_qa_20260603.md`.
+- v2 DOCX direct render QA: 11 rendered PNG pages from the system-LibreOffice PDF conversion, with pages 1, 5, and 7-11 visually inspected.
 - Current raw completion audit: `outputs/capital_iq_raw_data_completion_audit_20260603.md`.
+- Current SSCI/JCR Q3-and-above target-route refresh: `outputs/ssci_jcr_q3_target_route_refresh_20260603.md`.
 
 ## Why This Is Not Yet 100% Data Readiness
 
@@ -139,29 +141,29 @@ Generated artifacts:
 DOCX QA status:
 
 - Structural QA passed: archive integrity OK, 70 paragraphs, 5 tables, 2 sections, v2 title present, old `19,402` broad-stress sample size absent.
-- Visual render QA is blocked by a local LibreOffice headless dependency error: missing `liblcms2.2.dylib`.
-- The DOCX is therefore a structurally valid draft, not a visually verified final upload file.
+- Direct visual render QA passed using the system LibreOffice application and Poppler rendering path.
+- Visual QA inspected the full contact sheet plus pages 1, 5, and 7-11.
+- The bundled `render_docx.py` route remains blocked by a local LibreOffice headless dependency error: missing `liblcms2.2.dylib`, but the direct system-LibreOffice route produced a usable PDF and 11 PNG pages.
+- The DOCX is therefore a visually verified draft manuscript, not yet the exact final upload file.
 
 Packaging implication:
 
-- The paper is now a coherent v2 draft package, but not a final portal-ready submission.
+- The paper is now a coherent v2 draft package with visual DOCX QA, but not a final portal-ready submission.
 
 ## Binding Next Step
 
-Do not continue blind downloading before reviewing the v2 diagnostics. The next highest-value step is sample freeze and unified cleaning based on the v2 panel:
+The raw-download phase is complete for the current strict-accounting-stress manuscript route. Do not continue blind downloading merely to make the raw folder larger. The next highest-value steps are journal-route verification and final package hardening:
 
-1. sample-freeze table;
-2. field/year/market missingness audit;
-3. duplicate company-year audit;
-4. historical-market-cap date audit;
-5. analyst timing/leakage audit;
-6. Altman/strict/persistent/event label construction audit;
-7. Go/No-Go decision for using Altman as main label versus robustness-only label.
+1. select the primary route: Applied Economics full article or Applied Economics Letters short empirical letter;
+2. verify the selected journal in live JCR or institutional Web of Science before submission;
+3. lock the journal-specific formatting and blinded/non-blinded package requirements;
+4. rerender the exact final DOCX/PDF after journal formatting;
+5. keep event labels as candidate validation unless a direct-ID Key Developments export is obtained;
+6. keep tone/text out of the claim unless a separate text/tone dataset is downloaded, audited, and merged.
 
-Specific next decisions:
+Specific data decisions:
 
-- whether to keep Altman as a main label given only 4,102 full-component candidate rows;
-- whether to treat Key Developments as broad going-concern/delisting event evidence rather than strict bankruptcy/default evidence;
-- whether to re-download Key Developments with baseline-compatible Entity ID before using event labels in a reviewer-facing main model;
-- whether to exclude FY2024 from forward-event labels and FY2023 from 24-month labels;
-- whether the 58 analyst timing violations are dropped, repaired, or used only after leakage-safe correction.
+- Altman should not be the main label given limited full-component coverage.
+- Key Developments should be treated as broad event-candidate evidence rather than strict bankruptcy/default evidence unless a baseline-compatible Entity ID export is obtained.
+- FY2024 should remain excluded from one-year-ahead outcome samples, and FY2023 should remain excluded from 24-month forward labels where appropriate.
+- The 58 analyst timing violations should remain excluded from model samples unless repaired with leakage-safe forecast-date evidence.

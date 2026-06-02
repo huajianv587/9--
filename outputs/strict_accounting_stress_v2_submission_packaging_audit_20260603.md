@@ -6,7 +6,7 @@ Date: 2026-06-03T04:29:41
 
 Status: DRAFT_PACKAGE_BUILT_NOT_FINAL_SUBMISSION
 
-The v2 manuscript package has been rebuilt around the strict accounting-stress route. It is not yet final submission-ready because journal selection must be refreshed, DOCX/PDF visual QA has not been rerun for this draft, and event-ID/tone limitations remain.
+The v2 manuscript package has been rebuilt around the strict accounting-stress route. It now has a visually checked DOCX draft via direct system-LibreOffice rendering, but it is not yet final submission-ready because journal selection must be refreshed and event-ID/tone limitations remain.
 
 ## Generated Artifacts
 
@@ -29,4 +29,4 @@ The v2 manuscript package has been rebuilt around the strict accounting-stress r
 - Event labels are candidate-level because direct event ID alignment is weak.
 - Altman is robustness-only because full-component coverage is limited.
 - Tone/text extraction is not included in the v2 firm-year panel and should not be claimed.
-- DOCX generation is complete and structural QA passed, but visual render QA is blocked by the local LibreOffice `liblcms2.2.dylib` issue. Rerender before portal upload.
+- DOCX generation is complete, structural QA passed, and direct visual render QA passed using `/Applications/LibreOffice.app`. The bundled `render_docx.py` path remains blocked by a local `liblcms2.2.dylib` dependency issue, so the exact final upload file should still be rerendered after journal-specific formatting.
