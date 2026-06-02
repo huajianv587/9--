@@ -1,0 +1,491 @@
+# 策略C：最稳健版数据下载清单
+
+日期：2026-06-02
+项目：Analyst Coverage and Future Financial Stress
+目标：正规 SSCI/SCIE 同级别 Q3，尽量提高稳健性和接收概率
+
+---
+
+# 一、核心原则
+
+本项目如果走“最稳健策略C”，数据下载目标不是简单补几个字段，而是把论文从“会计压力关联研究”升级为：
+
+1. 有真实或准真实困境事件标签；
+2. 有完整或接近完整的 Altman-style distress 指标；
+3. 有分析师覆盖、覆盖变化、预测分歧、预测修正等信息环境变量；
+4. 有市场变量控制可见度、流动性和市场风险；
+5. 尽量包含 inactive / delisted firms，避免幸存者偏误；
+6. 所有预测变量必须发生在 outcome 之前，避免 look-ahead bias。
+
+---
+
+# 二、样本下载范围
+
+## 1. 市场范围
+
+最低版本：
+- Australia / ASX
+- Singapore / SGX / Catalist
+
+如果数据可得、时间允许，建议扩展到：
+- Hong Kong / HKEX
+- Malaysia / Bursa Malaysia
+- Thailand / SET
+- Korea / KRX
+- Japan / TSE
+
+但是注意：
+如果扩展市场会拖慢项目，先不要扩太多。稳三区优先不是市场越多越好，而是标签和识别越清楚越好。
+
+推荐顺序：
+1. Australia + Singapore，当前主样本；
+2. Hong Kong 作为第三市场；
+3. Malaysia / Thailand 作为薄覆盖市场补充；
+4. Korea / Japan 可作为稳健性，但制度差异较大。
+
+## 2. 公司范围
+
+必须包含：
+- Active listed companies
+- Inactive listed companies
+- Delisted companies
+- Bankrupt / liquidated / suspended / restructuring firms if available
+
+不要只下载 active firms。只下载 active firms 会产生 survivorship bias，这是审稿人的重大攻击点。
+
+公司类型：
+- listed common equity
+- ordinary shares
+- operating companies
+
+建议排除或单独标记：
+- funds
+- ETFs
+- REITs，如果样本过多可单独控制或剔除
+- SPACs
+- preferred shares
+- financial firms，如果使用 Altman Z-score，银行/保险应单独处理或剔除
+
+## 3. 时间范围
+
+推荐：2010-2024
+
+最低：2014-2024
+
+说明：
+当前已有 2014-2024。如果可以下载，建议向前扩到 2010，增加事件数和时间跨度。
+
+---
+
+# 三、第一优先级：真实困境/退市/状态事件字段
+
+这是策略C最重要的部分。
+
+## 必须下载字段
+
+| 字段 | Capital IQ可能名称 | 用途 |
+|---|---|---|
+| company_id | Company ID / IQ ID | 主键 |
+| company_name | Company Name | 人工核查 |
+| ticker | Ticker | 识别 |
+| exchange | Primary Exchange | 市场筛选 |
+| country | Country / Headquarters Country | 国家控制 |
+| company_status | Company Status | 是否active/inactive/bankrupt等 |
+| status_date | Status Date | 状态变化时间 |
+| delisting_date | Delisting Date | 退市事件时间 |
+| delisting_reason | Delisting Reason | 区分困境退市和并购退市 |
+| bankruptcy_filing_date | Bankruptcy Filing Date | 严格困境事件 |
+| bankruptcy_status | Bankruptcy Status | 严格困境事件 |
+| liquidation_date | Liquidation Date | 清算事件 |
+| liquidation_status | Liquidation Status | 清算状态 |
+| restructuring_date | Restructuring Date | 债务重组/困境重组 |
+| default_event_date | Default Date / Debt Default Date | 违约事件 |
+| receivership_date | Receivership / Administration Date | 接管/管理程序 |
+| suspension_date | Trading Suspension Date | 潜在困境信号 |
+| suspension_reason | Trading Suspension Reason | 区分困境与其他原因 |
+
+## 用途
+
+构建最严格的因变量：
+
+strict_distress_event_12m = 1，如果未来12个月或下一财年发生：
+- bankruptcy
+- liquidation
+- receivership / administration
+- default
+- distressed restructuring
+- distress-related delisting
+- long trading suspension due to financial distress
+
+如果真实事件数量不够，再使用 broader distress label。
+
+---
+
+# 四、第二优先级：完整 Altman Z-score / 财务困境指标字段
+
+## 必须下载字段
+
+| 字段 | 用途 |
+|---|---|
+| total_assets | 已有，但重新下载可核对 |
+| total_liabilities | Altman X4分母；比total_debt更好 |
+| total_debt | 杠杆控制 |
+| total_equity | 负权益标签 |
+| current_assets | Working capital |
+| current_liabilities | Working capital |
+| retained_earnings | Altman X2 |
+| revenue / sales | Altman X5 |
+| EBIT | Altman X3 |
+| EBITDA | 稳健性 |
+| net_income | 盈利能力 |
+| operating_income | 经营亏损 |
+| interest_expense | 利息覆盖率 |
+| cash_and_equivalents | 流动性 |
+| operating_cash_flow | 现金流压力 |
+| capital_expenditure | 投资活动控制，可选 |
+| total_current_assets | 如果 current_assets 字段名不同 |
+| total_current_liabilities | 如果 current_liabilities 字段名不同 |
+
+## 用途
+
+构建：
+
+1. Altman Z-score
+2. Zmijewski score，如可行
+3. Ohlson O-score，如字段足够
+4. strict accounting stress
+5. persistent accounting stress
+6. current stress control
+
+---
+
+# 五、第三优先级：市场变量字段
+
+这些字段用于控制公司可见度、流动性、市场风险，减少“分析师覆盖只是因为公司更大更活跃”的审稿攻击。
+
+## 必须下载字段
+
+| 字段 | 用途 |
+|---|---|
+| market_cap | 市值；Altman X4；公司可见度控制 |
+| share_price | 市场表现 |
+| shares_outstanding | 市值核对 |
+| total_return_12m | 市场表现控制 |
+| total_return_6m | 稳健性 |
+| total_return_3m | 短期市场信号 |
+| return_volatility_12m | 风险控制 |
+| trading_volume | 流动性 |
+| turnover | 流动性 |
+| bid_ask_spread | 如果有，流动性/信息不对称控制 |
+| market_to_book | 估值控制 |
+| book_to_market | 估值控制 |
+
+## 时间点要求
+
+最好按 fiscal-year-end 对齐：
+- 每个公司每个财年末的 market_cap、price、return、volume、volatility。
+
+不能用未来市场数据预测过去事件。
+
+---
+
+# 六、第四优先级：分析师覆盖、预测、分歧、修正字段
+
+当前已有EPS预测、分析师数量、stddev/high/low等。策略C建议补充更完整的 analyst information environment。
+
+## 必须下载字段
+
+| 字段 | 用途 |
+|---|---|
+| num_analysts | 主变量：coverage intensity |
+| analyst_covered | 主变量，可由 num_analysts > 0 构建 |
+| consensus_eps | 预测水平 |
+| eps_high | high-low spread |
+| eps_low | high-low spread |
+| eps_stddev | dispersion |
+| forecast_date | 防止look-ahead bias |
+| as_of_date | fiscal-year-end snapshot |
+| forecast_period | FY+1匹配 |
+| eps_actual | forecast error，如果有 |
+| recommendation_consensus | 分析师评级，如果有 |
+| target_price_consensus | 分析师目标价，如果有 |
+| revision_30d | 预测修正 |
+| revision_90d | 预测修正 |
+| analyst_downgrade_count | 如果有，坏消息信号 |
+| analyst_upgrade_count | 如果有，好消息信号 |
+
+## 额外强烈建议下载：覆盖变化变量
+
+| 字段 | 用途 |
+|---|---|
+| analyst_initiations | 新增覆盖 |
+| analyst_drops | 停止覆盖 |
+| broker_count | 券商覆盖数量 |
+| broker_id / analyst_id | 如果可得，用于构建外生覆盖变化 |
+| coverage_start_date | 覆盖开始 |
+| coverage_end_date | 覆盖结束 |
+
+这些字段可用于：
+- coverage initiation tests
+- coverage termination tests
+- analyst coverage shock / drop analysis
+
+---
+
+# 七、第五优先级：券商/分析师冲击数据，用于准因果稳健性
+
+如果Capital IQ能下载，优先级很高，但下载难度可能较大。
+
+## 建议字段
+
+| 字段 | 用途 |
+|---|---|
+| analyst_id | 跟踪个人分析师 |
+| analyst_name | 人工核查 |
+| broker_id | 跟踪券商 |
+| broker_name | 券商固定效应/退出 |
+| coverage_start_date | 覆盖开始 |
+| coverage_end_date | 覆盖结束 |
+| analyst_firm_departure | 分析师离职，如果有 |
+| broker_closure / merger | 券商关闭/合并冲击 |
+| report_date | 报告时间 |
+| recommendation_date | 评级时间 |
+
+## 用途
+
+如果数据足够，可以做：
+1. Analyst coverage drop analysis
+2. Coverage initiation analysis
+3. Broker exit / merger shock analysis
+4. Difference-in-differences style robustness
+
+注意：
+这部分不是必须，但如果能做，会显著增强论文可信度。
+
+---
+
+# 八、第六优先级：行业、公司治理、融资约束控制变量
+
+如果下载方便，可以补充：
+
+| 字段 | 用途 |
+|---|---|
+| SIC / GICS / NAICS industry code | 行业固定效应 |
+| sector | 行业控制 |
+| firm age / incorporation date | 年龄控制 |
+| IPO date | 上市年龄 |
+| auditor | 审计质量，可选 |
+| institutional ownership | 如果有，信息环境控制 |
+| insider ownership | 治理控制，可选 |
+| debt maturity | 财务风险，可选 |
+| credit rating | 信用风险控制 |
+| rating_date | 时间对齐 |
+| rating_change | 降级事件 |
+
+这些字段有助于机制分析，但不是第一优先级。
+
+---
+
+# 九、推荐导出文件结构
+
+请尽量分成以下几个Excel/CSV文件下载，避免一个文件太大、字段混乱。
+
+## 文件1：company_master
+
+文件名：capital_iq_company_master_apac_2010_2024.xlsx
+
+字段：
+- company_id
+- company_name
+- ticker
+- exchange
+- country
+- sector
+- industry_code
+- company_status
+- status_date
+- listing_date
+- delisting_date
+- delisting_reason
+
+## 文件2：financials_annual
+
+文件名：capital_iq_financials_annual_apac_2010_2024.xlsx
+
+字段：
+- company_id
+- fiscal_year
+- fiscal_period_end
+- total_assets
+- total_liabilities
+- total_debt
+- total_equity
+- current_assets
+- current_liabilities
+- retained_earnings
+- revenue
+- EBIT
+- EBITDA
+- operating_income
+- net_income
+- interest_expense
+- cash_and_equivalents
+- operating_cash_flow
+
+## 文件3：market_data_fye
+
+文件名：capital_iq_market_data_fye_apac_2010_2024.xlsx
+
+字段：
+- company_id
+- fiscal_year
+- fiscal_period_end
+- market_cap
+- share_price
+- shares_outstanding
+- total_return_12m
+- total_return_6m
+- total_return_3m
+- return_volatility_12m
+- trading_volume
+- turnover
+- market_to_book
+
+## 文件4：analyst_estimates_fyplus1
+
+文件名：capital_iq_analyst_estimates_fyplus1_apac_2010_2024.xlsx
+
+字段：
+- company_id
+- fiscal_year
+- as_of_date
+- forecast_period
+- forecast_date
+- num_analysts
+- consensus_eps
+- eps_high
+- eps_low
+- eps_stddev
+- eps_actual
+- recommendation_consensus
+- target_price_consensus
+- revision_30d
+- revision_90d
+
+## 文件5：distress_events
+
+文件名：capital_iq_distress_events_apac_2010_2024.xlsx
+
+字段：
+- company_id
+- event_type
+- event_date
+- bankruptcy_filing_date
+- liquidation_date
+- default_event_date
+- restructuring_date
+- receivership_date
+- suspension_date
+- suspension_reason
+- delisting_date
+- delisting_reason
+- event_source_note
+
+## 文件6：analyst_broker_coverage_optional
+
+文件名：capital_iq_analyst_broker_coverage_apac_2010_2024.xlsx
+
+字段：
+- company_id
+- analyst_id
+- analyst_name
+- broker_id
+- broker_name
+- coverage_start_date
+- coverage_end_date
+- report_date
+- recommendation_date
+- recommendation
+- target_price
+
+---
+
+# 十、最低可接受下载包
+
+如果时间有限，至少下载以下三个文件：
+
+1. company_master
+2. financials_annual
+3. market_data_fye
+
+并确保包含：
+- inactive/delisted firms
+- current_assets
+- current_liabilities
+- retained_earnings
+- market_cap
+- delisting_date
+- delisting_reason
+- company_status
+
+这已经足以显著提升论文稳健性。
+
+---
+
+# 十一、最理想下载包
+
+最理想是全部六个文件：
+
+1. company_master
+2. financials_annual
+3. market_data_fye
+4. analyst_estimates_fyplus1
+5. distress_events
+6. analyst_broker_coverage_optional
+
+这样可以做：
+- broad accounting stress
+- strict accounting stress
+- persistent stress
+- Altman Z-score distress
+- real event distress
+- analyst coverage level
+- analyst coverage intensity
+- analyst coverage change
+- market and liquidity controls
+- market/year/industry fixed effects
+- onset sample
+- delisting/distress event robustness
+- potential quasi-causal coverage shock tests
+
+---
+
+# 十二、下载后我可以处理什么？
+
+可以处理：
+1. 清洗Excel/CSV原始数据；
+2. 合并 company_id / fiscal_year 面板；
+3. 检查重复值、缺失值、异常值；
+4. 构建Altman Z-score、strict stress、persistent stress、event distress；
+5. 做look-ahead bias时间审计；
+6. 重新跑logit、LPM、FE、cluster SE、IPTW、common support等模型；
+7. 生成论文表格；
+8. 重写英文论文；
+9. 写Data Availability、variable definitions、appendix；
+10. 准备APJFS / Economic Record / Applied Economics / AEL不同投稿版本。
+
+---
+
+# 十三、重要提醒
+
+即使走策略C，也不能诚实承诺单一期刊70-80%接收率。
+正规SSCI/SCIE Q3金融经济期刊通常没有这么高的官方接收率。
+
+策略C的价值是：
+- 显著降低拒稿风险；
+- 把论文从“可投”提升为“比较稳健”；
+- 让审稿人更难攻击因变量、幸存者偏误、内生性和数据透明度；
+- 提高顺序投稿组合的项目级成功率。
+
+最稳妥表达：
+目标是通过数据增强和保守定位，把论文提升到正规Q3期刊可认真审理并有较高修回机会的水平，而不是保证单刊70-80%。

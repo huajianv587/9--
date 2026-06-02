@@ -1,0 +1,30 @@
+Capital IQ 数据下载步骤 - 第1步：进入公司筛选功能
+
+目标：找到 Screening 或 Companies 功能，筛选澳大利亚和新加坡的上市公司。
+
+操作步骤：
+
+1. 在 Capital IQ 顶部菜单栏找到以下选项之一：
+   - "Screening" 
+   - "Companies"
+   - "Search" 
+   - 或者侧边栏的 "Company Screener"
+
+2. 常见的入口位置：
+   方式A：顶部菜单 → Companies → Screening
+   方式B：顶部菜单 → Screening → Public Company Screening
+   方式C：左侧导航 → Screening 或 Company Search
+
+3. 如果看不到，尝试：
+   - 点击左上角的 "≡" 汉堡菜单
+   - 或点击 Capital IQ logo 回到主页
+   - 查找 "Company Screening" 或 "Advanced Search"
+
+目标界面特征：
+你应该看到一个可以设置筛选条件的界面，比如：
+- Geography / Region
+- Exchange
+- Company Status
+- Financial Data Fields
+
+请告诉我你现在看到了什么菜单选项，我会告诉你下一步点击哪里。

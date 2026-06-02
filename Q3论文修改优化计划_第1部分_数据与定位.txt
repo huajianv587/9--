@@ -1,0 +1,205 @@
+论文Q3投稿修改优化总计划
+第1部分：数据、定位与接收率边界
+日期：2026-06-02
+项目：Analyst Coverage and Accounting-Based Financial Stress in Singapore and Australian Listed Firms
+目标：正规SSCI/SCIE级别期刊，优先JCR Q3，不使用中科院分区；以项目级顺序投稿组合尽量接近70-80%最终接收概率。
+
+一、评审人总判断
+
+当前稿件不能再按“分析师覆盖预测财务困境”或“分析师覆盖降低困境风险”包装。这个写法会被SSCI金融/经济评审直接攻击：
+
+1. 因变量过宽：现有stress_12m事件率约63.4%，更像一般经营弱势或会计压力，不像正式financial distress。
+2. 内生性无法真正解决：分析师覆盖由公司规模、流动性、透明度、融资能力和未观察健康程度共同决定。
+3. 预测贡献弱：logit AUC从0.8851到0.8913，随机森林加入分析师变量后还略降，不能写成强预测模型论文。
+4. 分歧变量证据混合：forecast dispersion/high-low spread不能再作为主假设。
+5. 地理口径过大：样本只有Singapore和Australia，不能笼统声称Asia-Pacific markets。
+
+最稳定位应改为：
+
+A bounded empirical finance paper showing that analyst coverage is a robust information-environment marker associated with lower subsequent accounting-based financial stress in Singapore and Australian listed firms.
+
+中文边界：
+这是一篇边界清晰的实证金融论文。主发现是：分析师覆盖作为信息环境标志，与后续较低的会计型财务压力相关。它不是因果识别论文，不是机器学习预测论文，也不是分析师分歧论文。
+
+二、关于70-80%接收率目标的严格解释
+
+用户目标是：SSCI/SCIE级别，JCR Q3优先，不使用中科院分区，稳定70-80%接收率。
+
+必须严格区分：
+
+1. 单一期刊接收率：目前没有可信证据支持任何范围匹配、正规SSCI/SCIE、JCR Q3金融/经济期刊能对本稿诚实估计为70-80%。
+2. 项目级顺序投稿组合：通过数据补强、保守定位、首投+转投梯队，最终项目级成功率可以作为目标向65-75%、理想状态70-80%推进。
+3. 论文质量门槛：数据和写法可以改到SSCI Q3可认真外审水平，但这不等于单刊稳接收。
+
+因此，所有计划文件和投稿判断必须使用以下表述：
+
+可写：
+- project-level sequential submission target near 70-80% after data, result, manuscript, and journal-fit gates.
+- regular SSCI/JCR Q3-compatible route.
+- improves the likelihood of serious external review and revise-and-resubmit.
+
+不可写：
+- APJFS稳70-80%。
+- AEL稳70-80%。
+- 单刊稳接收。
+- 当前包已经达到严格70-80%目标。
+
+三、是否必须下载新数据
+
+结论：如果目标只是“尽快可投”，可以不补数据；如果目标是尽量接近SSCI Q3项目级70-80%，必须补数据。
+
+现有数据足以写一版保守描述性实证论文，但不足以最大化Q3成功率。最大短板是因变量和样本边界，而不是模型数量。
+
+最低必须补的数据不是原计划的4个字段，而是“可过审补数包”：
+
+1. Altman-style accounting distress字段
+- current_assets / total_current_assets
+- current_liabilities / total_current_liabilities
+- retained_earnings / accumulated_deficit
+- total_liabilities
+- historical fiscal-year-end market_cap
+
+2. 时间和主键字段
+- company_id
+- company_name
+- ticker
+- exchange
+- country
+- fiscal_year
+- fiscal_period_end
+- as_of_date / data_item_date
+- currency
+- units
+
+3. 样本边界和事件字段
+- company_status
+- status_date
+- delisting_date
+- delisting_reason
+- bankruptcy_filing_date/status
+- liquidation/receivership/administration/default/restructuring fields if available
+
+4. 市场可见度和流动性字段
+- market_cap at fiscal-year-end
+- share_price at fiscal-year-end
+- total_return_12m
+- return_volatility_12m
+- trading_volume or turnover
+- market_to_book if available
+
+四、为什么不能只补4个字段
+
+原计划的4个字段方向正确，但不足够：
+
+1. Altman X4需要market value of equity / total liabilities，不能用total_debt替代分母。
+2. market_cap必须是历史财年末市值，不能用当前市值或无日期字段，否则有look-ahead bias。
+3. retained earnings拿不到时不能随便估算。原先“Retained Earnings ≈ Total Equity - (Total Assets - Total Debt)”不成立，应删除。
+4. 只导current operating public companies会产生幸存者偏误。已有审计显示current/public导出会漏掉历史模型ID。
+5. Strict Accounting Stress未必足够严格。现有三组件粗算显示，下一年“至少2项压力”事件率仍约40.7%，persistent strict约32.6%，仍高于典型distress文献中更窄的事件率。
+
+五、主因变量策略
+
+按优先级设定：
+
+第一优先级：Altman-style distress zone
+- 如果历史current assets/current liabilities/retained earnings/market cap/total liabilities均可用，Altman-style distress作为主标签候选。
+- 必须报告事件率、缺失率、行业适用性。
+- 对金融机构、REITs、funds等Altman不适用样本，必须剔除或单独稳健性处理。
+
+第二优先级：Persistent accounting stress
+- 下一财年和再下一财年连续压力。
+- 用于降低一次性亏损的误判。
+- 样本限于可观察t+2的年份。
+
+第三优先级：Strict accounting stress
+- 下一财年至少满足2项：负权益、经营亏损、低利息覆盖率。
+- 只能作为保守会计压力标签，不能直接称为formal financial distress。
+
+第四优先级：Broad stress
+- 原始stress_12m保留为baseline或附录，不再作为唯一主标签。
+
+如果事件字段足够：
+- strict distress event 12m作为最强稳健性或主标签：bankruptcy/default/liquidation/receivership/distressed restructuring/distress-related delisting。
+- 如果事件数太少，则作为descriptive event audit，不强行做主模型。
+
+六、最终标题和定位
+
+推荐主标题：
+
+Analyst Coverage and Accounting-Based Financial Stress: Evidence from Singapore and Australia
+
+可选APJFS版本：
+
+Analyst Coverage, Information Environment, and Subsequent Financial Stress in Singapore and Australian Listed Firms
+
+不可使用：
+
+Analyst Coverage and Future Financial Stress in Asia-Pacific Equity Markets
+Analyst Disagreement and Financial Distress Prediction in Asia-Pacific Firms
+Analyst Coverage Reduces Financial Distress
+
+七、目标期刊梯队
+
+首投：
+1. Asia-Pacific Journal of Financial Studies
+- 正规SSCI/JCR Q3 finance route。
+- 最适合保守finance/information environment叙事。
+- 不能承诺单刊70-80%。
+
+转投1：
+2. Asia-Pacific Journal of Accounting & Economics 或 Economic Record
+- 根据最终叙事选择。
+- 如果强调market information和regional applied economics，Economic Record更自然。
+- 如果强调analyst information environment和accounting-based stress，APJAE可重新核验。
+
+转投2：
+3. Applied Economics
+- 概率优先的full article fallback。
+- 不是严格Q3替代，但可作为项目级成功率梯队。
+
+压缩 fallback：
+4. Applied Economics Letters
+- 只保留一个核心结果和2-3个稳健性。
+- 适合在full-paper路线失败后快速压缩。
+
+八、现实接收概率
+
+不补数据、只改写：
+- 单刊现实概率：25-35%
+- 项目级梯队：45-60%
+
+补Altman/市场/事件字段，并完成主模型重建：
+- APJFS-style首投现实概率：35-50%
+- 项目级梯队：60-75%
+- 若事件标签、Altman标签和AME均表现干净，且投稿包写作强：可向70-80%项目级目标靠近。
+
+补准因果覆盖变化/券商冲击数据并得到清楚结果：
+- 单刊概率仍不能承诺70-80%。
+- 但高质量RR机会明显提高。
+
+九、Go/No-Go门槛
+
+Go to manuscript rewrite only if：
+1. 主标签事件率合理，最好低于35%；若高于35%，必须明确称accounting-based stress。
+2. analyst_covered在主标签上方向稳定，且AME有经济意义。
+3. firm-clustered SE、market FE、year FE、size-bin market-year FE均不过度削弱主结论。
+4. onset sample或persistent label仍保持方向一致。
+5. 数据时间对齐审计通过，所有predictors在outcome之前。
+6. 样本边界审计说明active/inactive/delisted的处理。
+
+No-Go or downgrade if：
+1. Altman/strict/persistent标签下coverage结果消失或方向反转。
+2. 事件率仍过高且无法解释。
+3. historical market cap缺失严重且不能使用。
+4. 只能用current company universe重建数据。
+5. 分歧变量仍被放在主假设中。
+
+十、立即执行建议
+
+现在应执行“补数+重建标签+重写论文”的路线，而不是继续修饰旧稿。
+
+第一步：Safari/Capital IQ下载最低可过审补数包。
+第二步：下载后做raw workbook审计，不直接merge。
+第三步：构建Altman/persistent/strict/event标签。
+第四步：重跑主模型、AME和稳健性。
+第五步：按APJFS完整稿重写；同时准备Economic Record/Applied Economics转投版本。

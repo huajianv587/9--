@@ -1,0 +1,42 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+*.log
+
+# S&P Capital IQ licensed data and derived firm-level panels.
+data/
+
+# Manuscript/submission materials may contain author details, licensed-data
+# wording, rendered previews, or journal-package artifacts. Keep them local
+# unless a private repository/package policy is agreed separately.
+manuscript/
+submission_package/
+
+# Portal paste sheets and submission-package builders include author identity or
+# local package paths. Keep them local for public repositories.
+docs/*portal_fields*
+scripts/build_*_docx.py
+scripts/build_*_package.py
+scripts/check_*submission_package.py
+scripts/check_*transfer_package.py
+scripts/check_apjfs_portal_upload_clean_package.py
+scripts/check_submission_ladder_master.py
+
+# Outputs are mostly model artifacts, rendered previews, company-ID lists, and
+# Capital IQ audit inventories. Only explicitly whitelisted public-safe notes
+# are versioned.
+outputs/*
+!outputs/
+!outputs/capital_iq_safari_supplemental_download_state_20260602.md
+!outputs/strict_scie_ssci_q3_70_80_feasibility_audit_20260601.md
+
+# Binary/export artifacts should not enter the public repository accidentally.
+*.xlsx
+*.xls
+*.csv
+*.zip
+*.pdf
+*.docx
+*.png
+*.jpg
+*.jpeg
