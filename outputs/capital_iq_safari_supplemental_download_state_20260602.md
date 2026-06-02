@@ -160,3 +160,49 @@ The next highest-priority data work is:
 2. Repeat the same current-assets/current-liabilities/historical-market-cap workflow for SGX/Catalist.
 3. Download event/date fields from Key Developments, Transactions, company-status history, delisting/suspension, ratings, bankruptcy/liquidation/restructuring, or equivalent Capital IQ fields.
 4. Build a merge script that excludes current market cap, de-duplicates duplicate date columns, maps valid historical dates to fiscal years, and audits leakage.
+
+## 2026-06-02 ASX Cleaning Script Progress
+
+Added a public-safe cleaning script:
+
+- `scripts/build_asx_altman_market_supplement.py`
+
+Local generated outputs are intentionally ignored by git:
+
+- `data/processed/capital_iq_asx_altman_market_supplement_20260602.csv`
+- `outputs/asx_altman_market_supplement_merge_audit_20260602.md`
+
+Cleaning rules implemented:
+
+- Output window is restricted to fiscal years 2014-2024.
+- `Current` market capitalization is excluded.
+- `12/31/2023` and `12/31/2022` market capitalization are excluded because they have zero numeric observations in the audited export.
+- Valid replacements used:
+  - 2023: `12/29/2023`.
+  - 2022: `12/30/2022`.
+  - 2017: `12/29/2017`.
+  - 2016: `12/30/2016`.
+- Duplicate `12/29/2017` and duplicate `12/31/2015` columns are reduced by retaining the first occurrence.
+- Market cap remains in USD millions; current assets and current liabilities remain in USD thousands.
+
+ASX panel merge coverage from the generated audit:
+
+| Fiscal year | ASX panel rows | Current assets | Current liabilities | Historical market cap |
+|---:|---:|---:|---:|---:|
+| 2014 | 1,075 | 1,046 | 1,039 | 0 |
+| 2015 | 1,130 | 1,097 | 1,097 | 967 |
+| 2016 | 1,184 | 1,149 | 1,153 | 1,038 |
+| 2017 | 1,261 | 1,229 | 1,230 | 1,115 |
+| 2018 | 1,345 | 1,304 | 1,307 | 1,184 |
+| 2019 | 1,417 | 1,373 | 1,373 | 1,216 |
+| 2020 | 1,461 | 1,423 | 1,426 | 1,288 |
+| 2021 | 1,552 | 1,526 | 1,527 | 1,458 |
+| 2022 | 1,612 | 1,584 | 1,585 | 1,545 |
+| 2023 | 1,636 | 1,609 | 1,611 | 1,577 |
+| 2024 | 1,644 | 1,618 | 1,619 | 1,607 |
+
+Remaining ASX gaps:
+
+- `12/31/2014` historical market capitalization is absent, so 2014 X4-style market value cannot be computed from this export.
+- Retained earnings is still missing.
+- This script does not complete a strict Altman Z-score; it prepares working-capital and market-value pieces only.
