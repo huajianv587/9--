@@ -20,7 +20,7 @@ Current strict estimate:
 | Sample freeze and exclusion audit | 70-75% | A provisional sample-freeze script now defines duplicate, market, analyst-timing, structure-name, event-window, and label-specific sample flags. It is still not final because industry classifications and tone/text-quality exclusions are not available in the v2 firm-year panel. |
 | Label construction readiness | 75-80% | Broad, strict accounting, persistent, Altman, and event candidate labels now exist and have sample counts plus preliminary logit checks. Event labels still rely on conservative name matching rather than direct Entity ID matching. |
 | Overall data readiness for final model rerun | 85-90% | The v2 merge, provisional sample freeze, winsorization, missingness rules, preliminary firm-clustered logit checks, market split, label robustness, onset sample, COVID exclusion, and prediction-increment checks are now in place. Remaining blockers are final industry/tone exclusions, event-ID reconciliation, and final manuscript-table regeneration. |
-| Full paper-to-submission readiness | 45-50% | Results now support a conditional strict-accounting-stress manuscript route, but manuscript rewrite, final tables, target-journal packaging, and submission QA remain incomplete. |
+| Full paper-to-submission readiness | 55-60% | Results support a conditional strict-accounting-stress route, v2 manuscript tables and draft text have been rebuilt, and a DOCX draft has passed structural QA. Remaining blockers are visual DOCX/PDF QA, refreshed target-journal verification, event-ID/tone limitations, and final submission package checks. |
 
 ## Evidence Inspected
 
@@ -35,6 +35,10 @@ Current strict estimate:
 - Local frozen candidate panel: `data/processed/ael_apac_firm_year_panel_v2_frozen_candidate_20260603.csv`.
 - Sample-freeze audit: `outputs/ael_apac_v2_sample_freeze_cleaning_audit_20260603.md`.
 - Strict accounting route Go/No-Go audit: `outputs/ael_v2_strict_accounting_go_no_go_20260603.md`.
+- v2 strict-route manuscript draft: `manuscript/strict_accounting_stress_v2_manuscript.md`.
+- v2 strict-route cover letter draft: `manuscript/strict_accounting_stress_v2_cover_letter.md`.
+- v2 strict-route DOCX draft: `manuscript/strict_accounting_stress_v2_submission_manuscript.docx`.
+- v2 DOCX structural QA: `outputs/strict_accounting_stress_v2_docx_structural_qa_20260603.md`.
 - Current raw completion audit: `outputs/capital_iq_raw_data_completion_audit_20260603.md`.
 
 ## Why This Is Not Yet 100% Data Readiness
@@ -121,6 +125,26 @@ Reviewer-facing implication:
 - The manuscript should be positioned as an association/information-environment paper, not a prediction-performance paper.
 - The main dependent variable should be strict subsequent accounting-based stress.
 - Broad stress stays appendix; Altman and event labels are robustness/validation, not the primary claim.
+
+## 2026-06-03 Draft Manuscript Package Update
+
+Generated artifacts:
+
+- v2 strict-route manuscript Markdown draft.
+- v2 strict-route cover letter draft.
+- five v2 manuscript tables under `outputs/manuscript_v2_strict/`.
+- DOCX manuscript draft with portrait text section and landscape table section.
+- DOCX structural QA report.
+
+DOCX QA status:
+
+- Structural QA passed: archive integrity OK, 70 paragraphs, 5 tables, 2 sections, v2 title present, old `19,402` broad-stress sample size absent.
+- Visual render QA is blocked by a local LibreOffice headless dependency error: missing `liblcms2.2.dylib`.
+- The DOCX is therefore a structurally valid draft, not a visually verified final upload file.
+
+Packaging implication:
+
+- The paper is now a coherent v2 draft package, but not a final portal-ready submission.
 
 ## Binding Next Step
 

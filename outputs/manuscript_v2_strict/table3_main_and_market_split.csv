@@ -1,0 +1,5 @@
+Specification,N,Events,Event rate,Coefficient,Cluster SE,Odds ratio,AME,AUC
+Main strict accounting stress,19322,7874,40.8%,-0.342***,0.073,0.711,-0.072,0.710
+ASX split,13936,6017,43.2%,-0.251***,0.086,0.778,-0.055,0.695
+Singapore split,5386,1857,34.5%,-0.709***,0.147,0.492,-0.121,0.804
+Analyst intensity log1p count,19322,7874,40.8%,-0.463***,0.052,0.630,-0.124,0.712

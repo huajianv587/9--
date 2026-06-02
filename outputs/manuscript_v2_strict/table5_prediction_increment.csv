@@ -1,0 +1,2 @@
+Comparison,AUC controls,AUC + analyst,Delta AUC,Brier controls,Brier + analyst,Delta Brier
+strict_label_accounting_plus_analyst_minus_accounting_only,0.7101,0.7100,-0.0001,0.2111,0.2106,-0.0005
