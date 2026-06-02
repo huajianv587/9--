@@ -17,21 +17,23 @@ Current strict estimate:
 | Raw workbook base audit layer | 100% | Each required supplemental workbook has a base audit and field/event audit, but most decisions remain `PASS_WITH_NOTES`, not clean unconditional pass. |
 | Download checklist at reviewer-data-package level | 80-85% | The critical raw blocks are present, but the checklist still requires missing-ID reconciliation, duplicate handling, leakage checks, and market/current-universe boundary decisions after merge. |
 | Unified cleaned v2 panel | 70-75% | A provisional Capital IQ v2 panel has now been built from the baseline firm-year panel plus supplemental raw workbooks, with 21,737 rows, 2,335 companies, FY2014-FY2024, and zero duplicate company-year rows. It is not yet sample-frozen. |
-| Sample freeze and exclusion audit | 35-45% | The 2,335-company model panel and broad 3,005-company status universe are available, but final inclusion/exclusion rules for financial firms, REITs, funds, former/inactive firms, duplicates, low-quality text, and event windows are not frozen. |
-| Label construction readiness | 60-70% | Altman and event-label candidates now exist in the v2 panel, but Altman availability is constrained by total-liabilities coverage and event labels currently rely on conservative name matching rather than direct Entity ID matching. |
-| Overall data readiness for final model rerun | 70-75% | The v2 merge exists and passed basic structural checks, but final missingness rules, sample exclusions, winsorization, event-ID reconciliation, and leakage/timing decisions still need to be frozen before final model reruns. |
-| Full paper-to-submission readiness | 35-40% | Model reruns, result judgment, manuscript rewrite, tables, target-journal packaging, and final submission QA remain incomplete. |
+| Sample freeze and exclusion audit | 70-75% | A provisional sample-freeze script now defines duplicate, market, analyst-timing, structure-name, event-window, and label-specific sample flags. It is still not final because industry classifications and tone/text-quality exclusions are not available in the v2 firm-year panel. |
+| Label construction readiness | 75-80% | Broad, strict accounting, persistent, Altman, and event candidate labels now exist and have sample counts plus preliminary logit checks. Event labels still rely on conservative name matching rather than direct Entity ID matching. |
+| Overall data readiness for final model rerun | 80-85% | The v2 merge, provisional sample freeze, winsorization, missingness rules, and preliminary firm-clustered logit checks are now in place. Remaining blockers are final industry/tone exclusions, event-ID reconciliation, and full robustness/table regeneration. |
+| Full paper-to-submission readiness | 40-45% | Preliminary results now support a stricter accounting-stress route, but full robustness, table rebuilding, manuscript rewrite, target-journal packaging, and final submission QA remain incomplete. |
 
 ## Evidence Inspected
 
 - `data/raw/capital_iq/` currently contains 48 local `.xlsx` raw Capital IQ workbooks.
-- `data/processed/` currently contains 9 `.csv` processed files.
+- `data/processed/` currently contains 11 `.csv` processed files, including the local v2 and frozen-candidate panels.
 - Existing baseline panel: `data/processed/ael_apac_firm_year_panel.csv`, 21,737 firm-years and 2,335 unique companies over FY2014-FY2024.
 - Existing processed market/Altman supplements:
   - `data/processed/capital_iq_asx_altman_market_supplement_20260602.csv`
   - `data/processed/capital_iq_catalist_altman_market_pilot_20260602.csv`
 - Provisional v2 panel: `data/processed/ael_apac_firm_year_panel_v2_capital_iq_20260603.csv`.
 - Provisional v2 audit: `outputs/ael_apac_firm_year_panel_v2_capital_iq_audit_20260603.md`.
+- Local frozen candidate panel: `data/processed/ael_apac_firm_year_panel_v2_frozen_candidate_20260603.csv`.
+- Sample-freeze audit: `outputs/ael_apac_v2_sample_freeze_cleaning_audit_20260603.md`.
 - Current raw completion audit: `outputs/capital_iq_raw_data_completion_audit_20260603.md`.
 
 ## Why This Is Not Yet 100% Data Readiness
@@ -68,7 +70,34 @@ Binding caveats:
 
 - The event workbook's direct `SPCIQ ID` does not overlap with baseline `company_id`; event labels currently use conservative normalized-name matching and must be treated as candidate labels.
 - Total liabilities coverage is still the binding Altman bottleneck, especially for Singapore rows.
-- The v2 panel has not yet applied final sample exclusions, winsorization, or journal-facing label selection.
+- The frozen candidate panel has applied provisional sample exclusions and winsorization, but final journal-facing exclusion rules and label selection are not yet locked.
+
+## 2026-06-03 Sample-Freeze Update
+
+The first sample-freeze and unified-cleaning pass has now been generated.
+
+Key freeze results:
+
+- Broad stress appendix sample: 19,344 rows, event rate 63.5%.
+- Strict accounting stress 12m sample: 19,322 rows, event rate 40.8%.
+- Persistent broad stress 24m sample: 16,984 rows, event rate 57.5%.
+- Altman distress-zone 12m sample: 3,459 rows, event rate 41.0%.
+- Broad event candidate 12m sample: 19,353 rows, event rate 20.8%.
+- Analyst timing violations excluded from model samples: 58 rows.
+- Suspect REIT/fund/trust/SPAC-like structure proxy: 653 rows / 72 companies.
+
+Preliminary firm-clustered logit checks:
+
+- Strict accounting stress 12m: analyst-covered odds ratio 0.711, AME -7.2 percentage points, p < 0.001.
+- Altman distress-zone 12m: odds ratio 0.710, p about 0.09, direction consistent but underpowered.
+- Broad event candidate 12m: odds ratio 0.472, p < 0.001, but event-ID mapping remains candidate-level.
+
+Current reviewer-level reading:
+
+- The strict accounting-stress route is now the strongest candidate for the main story.
+- Altman should be robustness or supporting evidence unless total-liabilities coverage is improved.
+- Event evidence is useful validation but should not be called formal bankruptcy/default evidence without a direct-ID event export or stronger event taxonomy.
+- Tone/text extraction and low-quality-text exclusion remain unverified because the v2 panel has no tone or raw-text fields.
 
 ## Binding Next Step
 

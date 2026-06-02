@@ -1,0 +1,7 @@
+sample,flag,target,rows,firms,events,event_rate,covered_rows,covered_rate,asx_rows,singapore_rows
+Broad stress appendix,broad_baseline_sample_flag,broad_stress_12m_appendix,19344,2322,12285,0.6350806451612904,5213,0.26948924731182794,13946,5398
+Strict accounting stress 12m,strict_accounting_sample_flag,strict_accounting_stress_12m_candidate,19322,2322,7874,0.4075147500258772,5213,0.2697960873615568,13936,5386
+Persistent broad stress 24m,persistent_sample_flag,persistent_broad_stress_24m_candidate,16984,2278,9772,0.5753650494583137,4540,0.2673104097974564,12251,4733
+Altman distress zone 12m,altman_sample_flag,altman_distress_12m_candidate,3459,618,1418,0.4099450708297196,838,0.24226655102630817,3280,179
+Broad event candidate 12m,event12_sample_flag,event_distress_12m_candidate,19353,2322,4026,0.2080297628274686,5213,0.2693639229060094,13947,5406
+Broad event candidate 24m,event24_sample_flag,event_distress_24m_candidate,17037,2282,4728,0.2775136467687973,4540,0.2664788401713917,12271,4766
