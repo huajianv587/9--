@@ -20,7 +20,7 @@ Current strict estimate:
 | Sample freeze and exclusion audit | 90-92% | The sample-freeze script defines duplicate, market, analyst-timing, structure-name, event-window, and label-specific sample flags. Remaining exclusions are not blockers for the strict route unless industry classifications or tone/text-quality exclusions are explicitly claimed. |
 | Label construction readiness | 88-90% | Broad, strict accounting, persistent, Altman, and event candidate labels exist and have sample counts plus firm-clustered logit checks. Strict accounting stress is main-ready; Altman and event labels remain robustness/validation evidence rather than primary outcomes. |
 | Overall data readiness for final model rerun | 90-92% | The v2 merge, sample freeze, winsorization, missingness rules, firm-clustered logit checks, market split, label robustness, onset sample, COVID exclusion, prediction-increment checks, manuscript tables, and draft package are now in place. Remaining data risks are event-ID reconciliation and absent tone/text fields, both outside the current strict main claim. |
-| Full paper-to-submission readiness | 60-65% | Results support a conditional strict-accounting-stress route, v2 manuscript tables and draft text have been rebuilt, and the DOCX draft has passed structural plus direct visual render QA. Remaining blockers are refreshed target-journal verification, final formatting to a selected journal, event-ID/tone limitation language, and portal package checks. |
+| Full paper-to-submission readiness | 68-72% | Results support a conditional strict-accounting-stress route, v2 manuscript tables and draft text have been rebuilt, the full v2 DOCX draft has passed structural plus direct visual render QA, and an Applied Economics Letters strict v2 short draft now exists with render QA and automated package checks. Remaining blockers are live JCR/Web of Science verification, final author/declaration files, strict-route cover letter/portal fields, Capital IQ license wording confirmation, and final upload checks. |
 
 ## Evidence Inspected
 
@@ -42,6 +42,9 @@ Current strict estimate:
 - v2 DOCX direct render QA: 11 rendered PNG pages from the system-LibreOffice PDF conversion, with pages 1, 5, and 7-11 visually inspected.
 - Current raw completion audit: `outputs/capital_iq_raw_data_completion_audit_20260603.md`.
 - Current SSCI/JCR Q3-and-above target-route refresh: `outputs/ssci_jcr_q3_target_route_refresh_20260603.md`.
+- Applied Economics Letters strict v2 short-route audit: `outputs/ael_strict_v2_submission_audit_20260603.md`.
+- Applied Economics Letters strict v2 draft: `manuscript/ael_strict_accounting_stress_v2_letter.md`.
+- Applied Economics Letters strict v2 DOCX draft: `manuscript/ael_strict_accounting_stress_v2_submission.docx`.
 
 ## Why This Is Not Yet 100% Data Readiness
 
@@ -137,6 +140,8 @@ Generated artifacts:
 - five v2 manuscript tables under `outputs/manuscript_v2_strict/`.
 - DOCX manuscript draft with portrait text section and landscape table section.
 - DOCX structural QA report.
+- Applied Economics Letters strict v2 short draft with three main tables.
+- Applied Economics Letters strict v2 DOCX rendered to a 6-page PDF and PNG pages.
 
 DOCX QA status:
 
@@ -148,16 +153,16 @@ DOCX QA status:
 
 Packaging implication:
 
-- The paper is now a coherent v2 draft package with visual DOCX QA, but not a final portal-ready submission.
+- The paper is now a coherent v2 draft package with visual DOCX QA and a target-journal short-route AEL draft, but not a final portal-ready submission.
 
 ## Binding Next Step
 
-The raw-download phase is complete for the current strict-accounting-stress manuscript route. Do not continue blind downloading merely to make the raw folder larger. The next highest-value steps are journal-route verification and final package hardening:
+The raw-download phase is complete for the current strict-accounting-stress manuscript route. Do not continue blind downloading merely to make the raw folder larger. The current primary route is Applied Economics Letters strict v2. The next highest-value steps are journal-route verification and final package hardening:
 
-1. select the primary route: Applied Economics full article or Applied Economics Letters short empirical letter;
-2. verify the selected journal in live JCR or institutional Web of Science before submission;
-3. lock the journal-specific formatting and blinded/non-blinded package requirements;
-4. rerender the exact final DOCX/PDF after journal formatting;
+1. verify Applied Economics Letters in live JCR or institutional Web of Science before submission;
+2. regenerate strict-route title page, declarations, cover letter, and portal paste fields;
+3. lock blinded/non-blinded package requirements;
+4. rerender the exact final DOCX/PDF after author/declaration formatting;
 5. keep event labels as candidate validation unless a direct-ID Key Developments export is obtained;
 6. keep tone/text out of the claim unless a separate text/tone dataset is downloaded, audited, and merged.
 

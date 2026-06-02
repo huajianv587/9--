@@ -4,9 +4,18 @@ Date: 2026-06-03
 
 ## Decision
 
-Status: TARGET_ROUTE_REFRESHED_NOT_FINAL_LOCKED
+Status: PRIMARY_ROUTE_SELECTED_AEL_STRICT_V2_NOT_FINAL_UPLOAD
 
 The current strict-accounting-stress manuscript should not be positioned as a causal finance paper, a bankruptcy-prediction paper, or a machine-learning paper. It should be submitted as a narrow applied empirical economics/finance paper: analyst coverage as an information-environment marker associated with lower subsequent accounting-based stress in Singapore and Australia.
+
+Primary route selected after this refresh: Applied Economics Letters strict v2 short article.
+
+Current primary-route artifacts:
+
+- `manuscript/ael_strict_accounting_stress_v2_letter.md`
+- `manuscript/ael_strict_accounting_stress_v2_submission.docx`
+- `outputs/ael_strict_v2_submission_audit_20260603.md`
+- `scripts/check_ael_strict_v2_package.py`
 
 The raw-data download gate is complete for this claim boundary. More blind downloading is not the right next step. Additional data downloads are only justified if the paper expands into one of these claims:
 
@@ -99,8 +108,8 @@ Assessment:
 
 ## Recommended Submission Sequence
 
-1. Applied Economics, if Q2 is acceptable under "Q3 or above."
-2. Applied Economics Letters, if the paper is compressed into letter format.
+1. Applied Economics Letters, using the strict v2 short draft.
+2. Applied Economics, if Q2 is acceptable under "Q3 or above" and a full article is preferred.
 3. Singapore Economic Review, if regional Asia/Singapore fit is prioritized.
 4. Economic Record, if Australia/economics fit is prioritized and slower review risk is acceptable.
 5. Asia-Pacific Journal of Financial Studies only after strengthening finance contribution language or obtaining cleaner event-ID evidence.
@@ -118,8 +127,7 @@ The current package is not a "no-risk" 70-80% submission. The hard risks are:
 
 ## Next Actions
 
-1. Select one primary route: Applied Economics full article or Applied Economics Letters short empirical letter.
-2. If Applied Economics Letters is selected, cut the manuscript to a letter structure: one research question, one sample table, one main result table, one robustness paragraph, appendix tables outside the main text.
-3. Verify the selected journal in live JCR or institutional WoS access immediately before submission.
-4. Rerender the exact final DOCX/PDF after formatting to the selected journal.
-5. Keep the raw data frozen unless the selected journal route requires a direct-ID event outcome or text/tone extension.
+1. Verify Applied Economics Letters in live JCR or institutional WoS access immediately before submission.
+2. Regenerate strict-route title page, declarations, cover letter, and portal fields.
+3. Rerender the exact final DOCX/PDF after author/declaration formatting.
+4. Keep the raw data frozen unless the selected journal route requires a direct-ID event outcome or text/tone extension.
